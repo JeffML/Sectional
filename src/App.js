@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import {MyFirstGrid} from './MyFirstGrid.js'
+import './css/grid/layout.css'
+import './css/grid/resizable.css'
+import {MyFirstGrid} from './MainGrid.js'
 
 class App extends Component {
   render() {
