@@ -19,7 +19,7 @@ class MyFirstGrid extends Component {
     const handleHostAdd = (currHost) => {
       //TODO: check connection, add host to web storage
       this.setState({ currHost });
-      console.log(`Added: ${currHost.label}`);
+      console.log(`Added: ${currHost}`);
     }
 
     const props = {

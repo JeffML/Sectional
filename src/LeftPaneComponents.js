@@ -7,6 +7,8 @@ var buttonStyle = {
   margin: '10px 10px 10px 0'
 };
 
+const hostState = {inputHost: null}
+
 const HostSelect = (props) => (
   <Select
     name="form-field-name"
@@ -21,13 +23,13 @@ const HostSelect = (props) => (
 )
 
 const HostInput = (props) => (
-  <input type='text' />
+  <input type='text' ref={input => {hostState.inputHost = input;}}  />
 )
 
 const HostAdd = (props) => (
   <button
         className="btn btn-default"
         style={buttonStyle}
-        onClick={props.handleHostAdd}>Add Host</button>
+        onClick={() => {props.handleHostAdd(hostState.inputHost.value)}}>Add Host</button>
 )
 export {HostSelect, HostInput, HostAdd}
