@@ -2,11 +2,24 @@ import ReactGridLayout from 'react-grid-layout'
 import React, {Component} from 'react';
 import {LeftPane, RightPane} from './Panes'
 
-class MyFirstGrid extends Component {
+class MainGrid extends Component {
   constructor(props) {
     super(props)
+
+    if (typeof (Storage) === "undefined") {
+        alert("Sorry, but this application requires browser support for Web Storage")
+    }
+
     this.state = {
-      currHost: ''
+      currHost: '',
+      knownHosts: JSON.parse(localStorage.knownHosts || "[]")
+    }
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    if (this.state.knownHosts !== nextState.knownHosts) {
+      console.log('update knownHosts')
+      localStorage.knownHosts = JSON.stringify(nextState.knownHosts);
     }
   }
 
@@ -17,9 +30,10 @@ class MyFirstGrid extends Component {
     }
 
     const handleHostAdd = (currHost) => {
-      //TODO: check connection, add host to web storage
+      //TODO: check connection
+      this.setState({knownHosts: this.state.knownHosts.concat([currHost])})
       this.setState({ currHost });
-      console.log(`Added: ${currHost}`);
+      console.log(`Added: ${currHost.label}`);
     }
 
     const props = {
@@ -44,4 +58,4 @@ class MyFirstGrid extends Component {
   }
 };
 
-export {MyFirstGrid};
+export {MainGrid};

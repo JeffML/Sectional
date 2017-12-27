@@ -15,10 +15,7 @@ const HostSelect = (props) => (
     placeholder="Select CouchDB Host"
     value={props.currHost.value}
     onChange={props.handleHostChange}
-    options={[
-      { value: 'one', label: 'One' },
-      { value: 'two', label: 'Two' },
-    ]}
+    options={props.knownHosts}
   />
 )
 
@@ -30,6 +27,6 @@ const HostAdd = (props) => (
   <button
         className="btn btn-default"
         style={buttonStyle}
-        onClick={() => {props.handleHostAdd(hostState.inputHost.value)}}>Add Host</button>
+        onClick={() => {props.handleHostAdd({value: hostState.inputHost.value, label: hostState.inputHost.value})}}>Add Host</button>
 )
 export {HostSelect, HostInput, HostAdd}
