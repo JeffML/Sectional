@@ -14,6 +14,7 @@ class MainGrid extends Component {
 
     this.state = {
       currHost: '',
+      dbs: [],
       knownHosts: JSON.parse(localStorage.knownHosts || "[]")
     }
   }
@@ -31,6 +32,17 @@ class MainGrid extends Component {
       console.log(`Selected: ${selectedHost.label}`);
     }
 
+    const getDbs = () => {
+      this.state.cx.db.list(function(err, body) {
+        if (err) {
+          throw err;
+        }
+        body.forEach(function(db) {
+          console.log(db);
+        });
+      });
+    }
+
     const handleHostAdd = (currHost) => {
       //check connection
       try {
@@ -40,8 +52,10 @@ class MainGrid extends Component {
           knownHosts: this.state.knownHosts.concat([currHost])
         })
         this.setState({currHost});
+        getDbs()
         console.log(`Added: ${currHost.label}`);
       } catch (e) {
+        console.error("error: ", e)
         alert(`Unable to connect to ${currHost.value}`)
       }
     }
@@ -52,6 +66,7 @@ class MainGrid extends Component {
         const cx = nano(currHost.value)
         this.setState({cx})
         this.setState({currHost});
+        getDbs()
         console.log(`Using: ${currHost.label}`);
       } catch (e) {
         alert(`Unable to connect to ${currHost.value}`)
