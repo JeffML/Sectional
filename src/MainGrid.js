@@ -1,14 +1,15 @@
-import ReactGridLayout from 'react-grid-layout'
 import React, {Component} from 'react';
 import {LeftPane, RightPane} from './Panes'
 import nano from 'nano'
+import 'react-simple-flex-grid/lib/main.css'
+import {Row, Col} from 'react-simple-flex-grid'
 
 class MainGrid extends Component {
   constructor(props) {
     super(props)
 
-    if (typeof (Storage) === "undefined") {
-        alert("Sorry, but this application requires browser support for Web Storage")
+    if (typeof(Storage) === "undefined") {
+      alert("Sorry, but this application requires browser support for Web Storage")
     }
 
     this.state = {
@@ -26,7 +27,7 @@ class MainGrid extends Component {
 
   render() {
     const handleHostSelect = (selectedHost) => {
-      this.setState({ selectedHost });
+      this.setState({selectedHost});
       console.log(`Selected: ${selectedHost.label}`);
     }
 
@@ -35,34 +36,54 @@ class MainGrid extends Component {
       try {
         const cx = nano(currHost.value)
         this.setState({cx})
-        this.setState({knownHosts: this.state.knownHosts.concat([currHost])})
-        this.setState({ currHost });
+        this.setState({
+          knownHosts: this.state.knownHosts.concat([currHost])
+        })
+        this.setState({currHost});
         console.log(`Added: ${currHost.label}`);
-      } catch(e) {
+      } catch (e) {
         alert(`Unable to connect to ${currHost.value}`)
       }
     }
 
+    const handleHostUse = (currHost) => {
+      //check connection
+      try {
+        const cx = nano(currHost.value)
+        this.setState({cx})
+        this.setState({currHost});
+        console.log(`Using: ${currHost.label}`);
+      } catch (e) {
+        alert(`Unable to connect to ${currHost.value}`)
+      }
+    }
+
+    const handleHostDelete = (currHost) => {
+      //check connection
+      this.setState({
+        knownHosts: this.state.knownHosts.filter(host => host.value !== currHost.value)
+      })
+      console.log(`Deleted: ${currHost.label}`);
+    }
+
     const props = {
       handleHostSelect: handleHostSelect.bind(this),
-      handleHostAdd: handleHostAdd.bind(this)
+      handleHostAdd: handleHostAdd.bind(this),
+      handleHostUse: handleHostUse.bind(this),
+      handleHostDelete: handleHostDelete.bind(this)
     }
 
     Object.assign(props, this.props, this.state)
 
-    // layout is an array of objects, see the demo for more complete usage
-    var layout = [
-      {i: 'left', x: 0, y: 0, w: 4, h: 20, static: true},
-      {i: 'right', x: 5, y: 0, w: 8, h: 20}
-    ];
-
-    return (
-      <ReactGridLayout className="layout" layout={layout} cols={12} rowHeight={30} width={1200}>
+    return (<Row>
+      <Col span={4}>
         <div key="left"><LeftPane {...props}/></div>
-        <div key="right"><RightPane/></div>
-      </ReactGridLayout>
-    )
-  }
+      </Col>
+      <Col span={8}><RightPane/></Col>
+    </Row>)
+  };
 };
 
-export {MainGrid};
+export {
+  MainGrid
+};
