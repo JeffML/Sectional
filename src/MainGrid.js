@@ -1,6 +1,7 @@
 import ReactGridLayout from 'react-grid-layout'
 import React, {Component} from 'react';
 import {LeftPane, RightPane} from './Panes'
+import nano from 'nano'
 
 class MainGrid extends Component {
   constructor(props) {
@@ -24,20 +25,26 @@ class MainGrid extends Component {
   }
 
   render() {
-    const handleHostChange = (currHost) => {
-      this.setState({ currHost });
-      console.log(`Selected: ${currHost.label}`);
+    const handleHostSelect = (selectedHost) => {
+      this.setState({ selectedHost });
+      console.log(`Selected: ${selectedHost.label}`);
     }
 
     const handleHostAdd = (currHost) => {
-      //TODO: check connection
-      this.setState({knownHosts: this.state.knownHosts.concat([currHost])})
-      this.setState({ currHost });
-      console.log(`Added: ${currHost.label}`);
+      //check connection
+      try {
+        const cx = nano(currHost.value)
+        this.setState({cx})
+        this.setState({knownHosts: this.state.knownHosts.concat([currHost])})
+        this.setState({ currHost });
+        console.log(`Added: ${currHost.label}`);
+      } catch(e) {
+        alert(`Unable to connect to ${currHost.value}`)
+      }
     }
 
     const props = {
-      handleHostChange: handleHostChange.bind(this),
+      handleHostSelect: handleHostSelect.bind(this),
       handleHostAdd: handleHostAdd.bind(this)
     }
 
