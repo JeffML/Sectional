@@ -1,12 +1,12 @@
 import React from 'react'
-import {HostSelect, HostInput, HostAdd} from './LeftPaneComponents'
+import {HostInput, HostAdd, SelectPanel} from './LeftPaneComponents'
 
 const redStyle = {backgroundColor:'red', height: '100%' }
 const blueStyle = {backgroundColor:'blue', height: '100%' }
 
 const LeftPane = (props) => {
   return <div style={blueStyle}>
-    <HostSelect {...props}/>
+    <SelectPanel {...props}/>
     <HostInput {...props}/>
     <HostAdd {...props}/>
   </div>
