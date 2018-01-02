@@ -100,7 +100,7 @@ class MainGrid extends Component {
       <Col span={4}>
         <div key="left"><LeftPane {...props}/></div>
       </Col>
-      <Col span={8}><RightPane/></Col>
+      <Col span={8}><RightPane {...props}/></Col>
     </Row>)
   };
 };
