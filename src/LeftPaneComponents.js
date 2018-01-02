@@ -27,7 +27,7 @@ class SelectPanel extends Component {
   }
 }
 
-const HostSelect = (props) => (<Select name="form-field-name" placeholder="Select CouchDB Host" value={props.selectedHost && props.selectedHost.value} onChange={props.handleHostSelect} options={props.knownHosts}/>)
+const HostSelect = (props) => (<Select name="host-select" placeholder="Select CouchDB Host" value={props.selectedHost && props.selectedHost.value} onChange={props.handleHostSelect} options={props.knownHosts}/>)
 
 const HostInput = (props) => (<input type='text' ref={input => {
     hostState.inputHost = input
@@ -45,8 +45,11 @@ const HostDelete = (props) => (<button className="btn" style={buttonStyle} onCli
     props.handleHostDelete({value: props.selectedHost.value, label: props.selectedHost.value})
   }}>Delete</button>)
 
+const SelectDatabase = (props) => (<Select name="db-select" placeholder="Select Database" value={props.selectedDatabase && props.selectedDatabase.value} onChange={props.handleDatabaseSelect} options={props.databases}/>)
+
 export {
   HostInput,
   HostAdd,
-  SelectPanel
+  SelectPanel,
+  SelectDatabase
 }

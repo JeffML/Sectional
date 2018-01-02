@@ -32,7 +32,9 @@ class MainGrid extends Component {
         if (err) {
           throw err;
         }
-        this.setState({databases})
+        this.setState({
+          databases: databases.map(db => ({label: db, value: db}))
+        })
       });
     }
   }
