@@ -81,11 +81,17 @@ class MainGrid extends Component {
       console.log(`Deleted: ${currHost.label}`);
     }
 
+    const handleDatabaseSelect = (selectedDatabase) => {
+      console.log({selectedDatabase})
+      this.setState({selectedDatabase});
+    }
+
     const props = {
       handleHostSelect: handleHostSelect.bind(this),
       handleHostAdd: handleHostAdd.bind(this),
       handleHostUse: handleHostUse.bind(this),
-      handleHostDelete: handleHostDelete.bind(this)
+      handleHostDelete: handleHostDelete.bind(this),
+      handleDatabaseSelect: handleDatabaseSelect.bind(this)
     }
 
     Object.assign(props, this.props, this.state)
