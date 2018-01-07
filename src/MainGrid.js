@@ -37,6 +37,22 @@ class MainGrid extends Component {
         })
       });
     }
+    if (this.state.selectedDatabase !== prevState.selectedDatabase) {
+      //TODO fetch view docs
+      const currdb = this.state.cx.use(this.state.selectedDatabase.value);
+      currdb.list({
+        startkey: "_design/",
+        endkey: "_design0",
+        include_docs: true,
+        limit: 501
+      }, (err, body) => {
+        if (err) {
+          console.error(err)
+        } else {
+          console.log("views", body.rows.map(v => v.id))
+        }
+      })
+    }
   }
 
   render() {
@@ -82,7 +98,6 @@ class MainGrid extends Component {
     }
 
     const handleDatabaseSelect = (selectedDatabase) => {
-      console.log({selectedDatabase})
       this.setState({selectedDatabase});
     }
 
