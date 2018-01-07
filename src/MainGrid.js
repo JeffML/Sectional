@@ -103,12 +103,17 @@ class MainGrid extends Component {
       this.setState({selectedDatabase});
     }
 
+    const handleViewSelect = (selectedView) => {
+      this.setState({selectedView});
+    }
+
     const props = {
       handleHostSelect: handleHostSelect.bind(this),
       handleHostAdd: handleHostAdd.bind(this),
       handleHostUse: handleHostUse.bind(this),
       handleHostDelete: handleHostDelete.bind(this),
-      handleDatabaseSelect: handleDatabaseSelect.bind(this)
+      handleDatabaseSelect: handleDatabaseSelect.bind(this),
+      handleViewSelect: handleViewSelect.bind(this)
     }
 
     Object.assign(props, this.props, this.state)
