@@ -49,7 +49,9 @@ class MainGrid extends Component {
         if (err) {
           console.error(err)
         } else {
-          console.log("views", body.rows.map(v => v.id))
+          this.setState({
+            views: body.rows.map(v => ({label: v.id, value: v.id}))
+          })
         }
       })
     }

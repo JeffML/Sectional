@@ -1,5 +1,5 @@
 import React from 'react'
-import {HostInput, HostAdd, SelectPanel, SelectDatabase} from './LeftPaneComponents'
+import {HostInput, HostAdd, SelectPanel, SelectDatabase, SelectView} from './LeftPaneComponents'
 
 const redStyle = {
   backgroundColor: 'red',
@@ -10,12 +10,17 @@ const blueStyle = {
   height: '100%'
 }
 
+const selectStyle = {
+  margin: "20px 20px, 20px, 0"
+}
+
 const LeftPane = (props) => {
   return <div style={blueStyle}>
     <SelectPanel {...props}/>
     <HostInput {...props}/>
     <HostAdd {...props}/>
-    <SelectDatabase {...props}/>
+    <SelectDatabase {...props} style={selectStyle}/><hr/>
+    <SelectView {...props} style={selectStyle}/>
   </div>
 }
 

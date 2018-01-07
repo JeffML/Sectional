@@ -47,9 +47,12 @@ const HostDelete = (props) => (<button className="btn" style={buttonStyle} onCli
 
 const SelectDatabase = (props) => (<Select name="db-select" placeholder="Select Database" value={props.selectedDatabase && props.selectedDatabase.value} onChange={props.handleDatabaseSelect} options={props.databases}/>)
 
+const SelectView = (props) => (<Select name="view-select" placeholder="Select View" value={props.selectedView && props.selectedView.value} onChange={props.handleViewSelect} options={props.views}/>)
+
 export {
   HostInput,
   HostAdd,
   SelectPanel,
-  SelectDatabase
+  SelectDatabase,
+  SelectView
 }
