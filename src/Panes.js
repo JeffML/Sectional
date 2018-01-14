@@ -1,12 +1,14 @@
 import React from 'react'
 import {HostInput, HostAdd, SelectPanel, SelectDatabase, SelectView} from './LeftPaneComponents'
+import {Location, TabbedPane} from './RightPaneComponents'
+
+const blueStyle = {
+  backgroundColor: 'blue',
+  height: '100%'
+}
 
 const redStyle = {
   backgroundColor: 'red',
-  height: '100%'
-}
-const blueStyle = {
-  backgroundColor: 'blue',
   height: '100%'
 }
 
@@ -25,17 +27,10 @@ const LeftPane = (props) => {
 }
 
 const RightPane = (props) => {
-  const server = props.currHost
-    ? props.currHost.label
-    : '';
-  const db = props.selectedDatabase
-    ? props.selectedDatabase.label
-    : '';
-  const serverdb = `${server}/${db}`
-
-  return (<div style={redStyle}>
-    <input name="host-db" type="text" readOnly={true} value={serverdb}/>
-  </div>)
+  return <div style={redStyle}>
+    <Location {...props}/><hr/>
+    <TabbedPane {...props}/>
+  </div>
 }
 
 export {

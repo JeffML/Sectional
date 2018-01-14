@@ -15,13 +15,13 @@ class MainGrid extends Component {
     this.state = {
       currHost: '',
       knownHosts: JSON.parse(localStorage.knownHosts || "[]"),
-      databases: []
+      databases: [],
+      currentTab: "view"
     }
   }
 
   componentWillUpdate(nextProps, nextState) {
     if (this.state.knownHosts !== nextState.knownHosts) {
-      console.log('update knownHosts')
       localStorage.knownHosts = JSON.stringify(nextState.knownHosts);
     }
   }
@@ -107,13 +107,22 @@ class MainGrid extends Component {
       this.setState({selectedView});
     }
 
+    const handleTabClick = (e) => {
+      document.getElementsByName('tab').forEach(e => e.style.backgroundColor = "#f1f1f1")
+
+      if (e.target.dataset.entity) {
+        this.setState({selectedTab: e.target.dataset.entity});
+      }
+    }
+
     const props = {
-      handleHostSelect: handleHostSelect.bind(this),
-      handleHostAdd: handleHostAdd.bind(this),
-      handleHostUse: handleHostUse.bind(this),
-      handleHostDelete: handleHostDelete.bind(this),
-      handleDatabaseSelect: handleDatabaseSelect.bind(this),
-      handleViewSelect: handleViewSelect.bind(this)
+      handleHostSelect,
+      handleHostAdd,
+      handleHostUse,
+      handleHostDelete,
+      handleDatabaseSelect,
+      handleViewSelect,
+      handleTabClick
     }
 
     Object.assign(props, this.props, this.state)
