@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {Row, Col} from 'react-simple-flex-grid'
 
 const Location = (props) => {
   const server = props.currHost
@@ -9,12 +10,25 @@ const Location = (props) => {
     : '';
   const serverdb = `${server}/${db}`
 
-  return <input name="host-db" type="text" readOnly={true} value={serverdb}/>
+  return <Row><input name="host-db" type="text" readOnly={true} style={{
+      width: "50%"
+    }} value={serverdb}/></Row>
 }
 
-const ViewTab = (props) => (<button name={"tab"} key={0} data-entity={"View"} style={props.tabPaneTab} onClick={props.handleTabClick} onMouseEnter={props.onMouseEnter} onMouseLeave={props.onMouseLeave}>{"View"}</button>)
+const contentPaneStyle = {
+  borderStyle: "solid"
+}
 
-const ConflictTab = (props) => (<button name={"tab"} key={1} data-entity={"Conflicts"} style={props.tabPaneTab} onClick={props.handleTabClick} onMouseEnter={props.onMouseEnter} onMouseLeave={props.onMouseLeave}>{"Conflict"}</button>)
+const ViewTab = (props) => (<Col span={1}>
+  <button name={"tab"} key={0} data-entity={"View"} style={props.tabPaneTab} onClick={props.handleTabClick} onMouseEnter={props.onMouseEnter} onMouseLeave={props.onMouseLeave}>{"View"}</button>
+</Col>)
+
+const ConflictTab = (props) => (<Col span={1}>
+  <button name={"tab"} key={1} data-entity={"Conflicts"} style={props.tabPaneTab} onClick={props.handleTabClick} onMouseEnter={props.onMouseEnter} onMouseLeave={props.onMouseLeave}>{"Conflict"}</button>
+</Col>)
+const ContentPane = (props) => (<Row>
+  <div style={contentPaneStyle}></div>
+</Row>)
 
 class TabbedPane extends Component {
   state: {}
@@ -39,7 +53,7 @@ class TabbedPane extends Component {
 
   render() {
     const tabPaneTab = {
-      backgroundColor: "inherit",
+      backgroundColor: "#f1f1f1",
       float: "left",
       border: "none",
       outline: "none",
@@ -71,10 +85,10 @@ class TabbedPane extends Component {
     }
     Object.assign(props, this.props, this.state)
 
-    return (<div style={this.tabPaneStyle}>
+    return (<Row style={this.tabPaneStyle}>
       <ViewTab {...props}/>
       <ConflictTab {...props}/>
-    </div>)
+    </Row>)
   }
 }
 

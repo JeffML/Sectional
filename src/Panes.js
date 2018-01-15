@@ -28,7 +28,7 @@ const LeftPane = (props) => {
 
 const RightPane = (props) => {
   return <div style={redStyle}>
-    <Location {...props}/><hr/>
+    <Location {...props}/>
     <TabbedPane {...props}/>
   </div>
 }
